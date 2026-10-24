@@ -1,0 +1,54 @@
+appId: com.tripare.dogbreed
+---
+# Tripare Dog Breed Explorer - Maestro Critical Flow E2E Test
+
+- launchApp
+- assertVisible: "Dog Breed Explorer"
+
+# Verify initial load and freshness indicator
+- assertVisible: "Last synced"
+
+# Test Debounced Search
+- tapOn: "Search 283 breeds or aliases..."
+- inputText: "Golden Retriever"
+- assertVisible: "Golden Retriever"
+- assertVisible: "Sporting Group"
+
+# Clear Search
+- tapOn:
+    id: "close-circle"
+    optional: true
+- eraseText: 20
+
+# Open Filter Modal
+- tapOn:
+    label: "Open filters"
+- assertVisible: "Filter Breeds"
+
+# Select Herding Group and Small Size
+- tapOn: "Herding Group"
+- tapOn: "Done"
+
+# Tap First Breed Card to open Detail Screen
+- tapOn:
+    index: 0
+    point: "50%,20%"
+
+# Assert Detail Screen & Tabs
+- assertVisible: "Overview"
+- assertVisible: "Traits"
+- assertVisible: "Gallery"
+- assertVisible: "About the Breed"
+
+# Switch to Traits Tab
+- tapOn: "Traits"
+- assertVisible: "Behavioral & Physical Scales"
+- assertVisible: "Energy Level"
+
+# Switch to Gallery Tab
+- tapOn: "Gallery"
+- assertVisible: "Image Attribution & Licensing"
+
+# Go Back
+- tapOn: "Go back to breed list"
+- assertVisible: "Dog Breed Explorer"
