@@ -81,8 +81,8 @@ Memory Usage Timeline (Megabytes)
 - Dropped Frames (>33ms): 2 frames (0.05%)
 
 ### Factors Ensuring 60 FPS:
-1. `removeClippedSubviews={true}` unmounts off-screen view hierarchies.
-2. `initialNumToRender={10}` and `maxToRenderPerBatch={10}` throttle batch rendering, leaving the JS thread free to process gestures.
+1. Virtualized windowing via `windowSize={7}`, `initialNumToRender={10}`, and `maxToRenderPerBatch={10}` keeping memory low without main thread stalls (`removeClippedSubviews` is disabled on Android to eliminate Fabric native `addViewAt` mounting desyncs).
+2. Throttled batch rendering leaves the JS thread free to process gestures.
 3. `React.memo` on `BreedCard` prevents unnecessary re-rendering of existing cards when new items enter the window.
 4. Thumbnail images are cached on disk and pre-decoded by native image decoders, bypassing the JS thread.
 

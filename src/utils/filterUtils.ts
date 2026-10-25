@@ -159,6 +159,7 @@ export function matchesFilters(
 }
 
 export interface BreedSection {
+  key: string;
   title: string;
   groupId: string;
   data: Breed[];
@@ -171,11 +172,12 @@ export function groupBreedsByGroup(
   breeds: Breed[],
   groupsById: Record<string, BreedGroup>
 ): BreedSection[] {
-  const map = new Map<string, { title: string; groupId: string; data: Breed[] }>();
+  const map = new Map<string, BreedSection>();
 
   // Initialize with known groups
   for (const group of Object.values(groupsById)) {
     map.set(group.id, {
+      key: `section-${group.id}`,
       title: group.attributes.name,
       groupId: group.id,
       data: [],
@@ -184,6 +186,7 @@ export function groupBreedsByGroup(
 
   const unassignedKey = 'unassigned';
   map.set(unassignedKey, {
+    key: `section-${unassignedKey}`,
     title: 'Other Breeds',
     groupId: unassignedKey,
     data: [],

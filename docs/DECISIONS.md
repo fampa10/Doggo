@@ -57,7 +57,7 @@ The assessment specifies:
    - `initialNumToRender: 10` (keeps initial paint under 100ms)
    - `maxToRenderPerBatch: 10` (prevents JS thread blockage during fast scroll)
    - `windowSize: 7` (preserves viewport responsiveness while reclaiming off-screen memory)
-   - `removeClippedSubviews: true` (detaches views outside the viewport)
+   - `removeClippedSubviews`: set to `false` on Android (`true` on iOS) to prevent Fabric `SurfaceMountingManager.addViewAt` native index desynchronization exceptions (`IndexOutOfBoundsException: index=9 count=0`).
 3. **Pure Component Memoization**:
    `BreedCard` is wrapped in `React.memo` with shallow property comparators, preventing item re-renders when other items or unrelated store fields change.
 

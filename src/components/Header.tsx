@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDogStore } from '../store/dogStore';
@@ -67,9 +68,11 @@ export const Header: React.FC = () => {
       {/* Top row: Brand & Actions */}
       <View style={styles.topRow}>
         <View style={styles.brandGroup}>
-          <View style={[styles.logoIcon, { backgroundColor: colors.primaryLight }]}>
-            <Ionicons name="paw" size={18} color={colors.primary} />
-          </View>
+          <Image
+            source={require('../../assets/logo.png')}
+            style={styles.logoImage}
+            accessibilityLabel="Dog Breed Explorer App Logo"
+          />
           <View>
             <Text style={[styles.appTitle, { color: colors.textPrimary }]}>
               Dog Breed Explorer
@@ -215,12 +218,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
   },
-  logoIcon: {
-    width: 34,
-    height: 34,
+  logoImage: {
+    width: 38,
+    height: 38,
     borderRadius: radius.md,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   appTitle: {
     fontSize: typography.fontSizes.md,

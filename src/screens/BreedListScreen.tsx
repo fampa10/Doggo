@@ -8,6 +8,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDogStore } from '../store/dogStore';
@@ -111,7 +112,7 @@ export const BreedListScreen: React.FC = () => {
     [colors, isDark]
   );
 
-  const keyExtractor = useCallback((item: Breed) => item.id, []);
+  const keyExtractor = useCallback((item: Breed, index: number) => item?.id || `breed-${index}`, []);
 
   // Empty State
   const renderEmptyComponent = () => {
@@ -176,7 +177,7 @@ export const BreedListScreen: React.FC = () => {
           keyExtractor={keyExtractor}
           renderItem={renderBreedItem}
           renderSectionHeader={renderSectionHeader}
-          stickySectionHeadersEnabled={true}
+          stickySectionHeadersEnabled={Platform.OS === 'ios'}
           refreshControl={
             <RefreshControl
               refreshing={isSyncing}
@@ -189,7 +190,7 @@ export const BreedListScreen: React.FC = () => {
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           windowSize={7}
-          removeClippedSubviews={true}
+          removeClippedSubviews={Platform.OS === 'android' ? false : true}
           contentContainerStyle={
             filteredBreeds.length === 0 ? styles.emptyScroll : styles.listContent
           }
@@ -211,7 +212,7 @@ export const BreedListScreen: React.FC = () => {
           initialNumToRender={12}
           maxToRenderPerBatch={12}
           windowSize={7}
-          removeClippedSubviews={true}
+          removeClippedSubviews={Platform.OS === 'android' ? false : true}
           contentContainerStyle={
             filteredBreeds.length === 0 ? styles.emptyScroll : styles.listContent
           }
